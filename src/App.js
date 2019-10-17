@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,15 +22,42 @@ import RedeemIcon from '@material-ui/icons/Redeem';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+import './App.css';
+import logoNegro from './LogoNegro.png'
+import logoBlanco from './LogoBlanco.png'
+import InformacionForm from './Informacion.js'
 
 
-const drawerWidth = 240;
-
+const drawerWidth = 210;
+const barHeight = 70;
+const logoMeasure = 100;
+const columnaInf=200;
+const footer = 100;
+const currencies = [
+  {
+    value: 'Mediterranea',
+    label: 'Mediterranea',
+  },
+  {
+    value: 'Vegana',
+    label: 'Vegana',
+  },
+  {
+    value: 'Italiana',
+    label: 'Italiana',
+  },
+];
+console.log(logoBlanco);
 const useStyles = makeStyles(theme => ({
+  logo:{
+    width: logoMeasure,
+    height: logoMeasure,
+    marginLeft: 50,
+  },
   iconsWhite:{
       color: 'white',
   },
@@ -47,9 +73,22 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     backgroundColor: "#0a0a0a",
     marginLeft: drawerWidth,
+    height: barHeight,
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
+  },
+  columnaInformacion: {
+    paddingRight: theme.spacing(4),
+    paddingLeft: "20%",
+    marginBottom: footer+20,
+    marginTop: 20,
+    width: columnaInf,
+    height: `calc(100% - ${barHeight+footer}px)`
+  },
+  rowinf: {
+    width: columnaInf-10,
+    paddingBottom: 30,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -67,20 +106,18 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
 }));
-
 function ResponsiveDrawer(props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
   }
 
   const drawer = (
-    <div>
-      <div className={classes.toolbar} />
+      <div className={classes.toolbar}>
+      <img  className={classes.logo} src={logoBlanco} alt="Logo" />
       <List>
         <ListItem button>
         <ListItemIcon >
@@ -147,41 +184,16 @@ function ResponsiveDrawer(props) {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <IconButton
-            color= "black"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography >
-            UserName
-            <Rating value={3} readOnly />
-          </Typography>
+          <div disableTypography>
+            <Typography variant="h5">
+              UserName
+            </Typography>
+          </div>
+          <Rating className="Calificacion" value={3} readOnly size="large" />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,
@@ -191,33 +203,12 @@ function ResponsiveDrawer(props) {
           >
             {drawer}
           </Drawer>
-        </Hidden>
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <div ClassName={classes.columnaInformacion}>
+        <InformacionForm/>
+        </div>
       </main>
     </div>
   );

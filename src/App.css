@@ -7,7 +7,11 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.columna {
+  margin-top: 40px;
+  padding-right: 200px;
+  padding-left: 100px;
+},
 .App-header {
   background-color: #0a0a0a;
   min-height: 100vh;
@@ -20,6 +24,10 @@
 }
 .App-link {
   color: #61dafb;
+}
+.Calificacion{
+  padding-left: 10px;
+  padding-bottom: 7px;
 }
 
 @keyframes App-logo-spin {
